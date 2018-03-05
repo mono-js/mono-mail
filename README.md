@@ -1,16 +1,11 @@
-# y
+# Mono Mail
 
 Mails module for Mono
-
-[![npm version](https://img.shields.io/npm/v/y.svg)](https://www.npmjs.com/package/y)
-[![Travis](https://img.shields.io/travis/gaetansenn/y/master.svg)](https://travis-ci.org/gaetansenn/y)
-[![Coverage](https://img.shields.io/codecov/c/github/gaetansenn/y/master.svg)](https://codecov.io/gh/gaetansenn/y)
-[![license](https://img.shields.io/github/license/gaetansenn/y.svg)](https://github.com/gaetansenn/y/blob/master/LICENSE)
 
 ## Installation
 
 ```bash
-npm install --save y
+npm install --save mono-mail
 ```
 
 Then, in your configuration file of your Mono application (example: `conf/application.js`):
@@ -18,19 +13,19 @@ Then, in your configuration file of your Mono application (example: `conf/applic
 ```js
 module.exports = {
   mono: {
-    modules: ['y']
+    mails: ['mono-mail']
   }
 }
 ```
 
 ## Configuration
 
-`y` will use the `mono.y` property of your configuration (example: `conf/development.js`):
+`mono-mail` will use the `mono.mail` property of your configuration (example: `conf/development.js`):
 
 ```js
 module.exports = {
   mono: {
-    y: {
+    mail: {
       /* Module options */
     }
   }
@@ -39,12 +34,10 @@ module.exports = {
 
 ## Usage
 
-In your `src/` files of your Mono project, you can access `hello` like this:
+In your `src/` files of your Mono project, you can access to mono-mail methods like this:
 
 ```js
-const { hello } = require('y')
-
-hello()
+const { send, generate, registerStyle } = require('mono-mail')
 ```
 
 ## Development / Contribution
