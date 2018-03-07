@@ -1,6 +1,11 @@
-# Mono Mail
+<h1 align="center"><img src="https://user-images.githubusercontent.com/904724/37090727-b69ee98c-2205-11e8-8b25-0cbe40198d61.png" width="350" alt="Mono mail"/></h1>
 
-Mails module for Mono
+> Emails module for [Mono](https://github.com/terrajs/mono)
+
+[![npm version](https://img.shields.io/npm/v/mono-mail.svg)](https://www.npmjs.com/package/mono-mail)
+[![Travis](https://img.shields.io/travis/terrajs/mono-mail/master.svg)](https://travis-ci.org/terrajs/mono-mail)
+[![Coverage](https://img.shields.io/codecov/c/github/terrajs/mono-mail/master.svg)](https://codecov.io/gh/terrajs/mono-mail.js)
+[![license](https://img.shields.io/github/license/terrajs/mono-mongodb.svg)](https://github.com/terrajs/mono-mail/blob/master/LICENSE)
 
 ## Installation
 
