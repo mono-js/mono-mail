@@ -18,7 +18,7 @@ Then, in your configuration file of your Mono application (example: `conf/applic
 ```js
 module.exports = {
   mono: {
-    mails: ['mono-mail']
+    modules: ['mono-mail']
   }
 }
 ```
