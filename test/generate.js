@@ -4,15 +4,7 @@ const { join } = require('path')
 const { start, stop } = require('mono-test-utils')
 
 const monoMail = require('../lib/index')
-const defaultEmailConf = {
-  subject: 'Email test for {{ firstName }}',
-  path: join(__dirname, 'fixtures/ok/email.html'),
-  style: 'front',
-  model: {
-    title: 'Welcome to mono-mail',
-    description: 'Mono module using mjml and handlebar to generate awesome template mail and send it to your customers'
-  }
-}
+const defaultEmailConf = require('./fixtures/ok/conf/mail')
 
 let ctx
 
