@@ -32,8 +32,8 @@ module.exports = {
   mono: {
     mail: {
       provider: 'smtp', //smtp by default (more to be added)
-			from: 'mono-mail@mono.io', //sender email adress (required)
-			smtp: // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/924fafffc09cfeb0267573af2c847cdbfcfa464d/types/nodemailer-smtp-transport/index.d.ts#L47
+      from: 'mono-mail@mono.io', //sender email adress (required)
+      smtp: // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/924fafffc09cfeb0267573af2c847cdbfcfa464d/types/nodemailer-smtp-transport/index.d.ts#L47
     }
   }
 }
