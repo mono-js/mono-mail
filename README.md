@@ -31,7 +31,9 @@ module.exports = {
 module.exports = {
   mono: {
     mail: {
-      /* Module options */
+      provider: 'smtp', //smtp by default (more to be added)
+			from: 'mono-mail@mono.io', //sender email adress (required)
+			smtp: // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/924fafffc09cfeb0267573af2c847cdbfcfa464d/types/nodemailer-smtp-transport/index.d.ts#L47
     }
   }
 }
@@ -39,10 +41,101 @@ module.exports = {
 
 ## Usage
 
-In your `src/` files of your Mono project, you can access to mono-mail methods like this:
+Mono mail is a mono module that using mjml and handlebar to generate and send awesome mails.
 
 ```js
-const { send, generate, registerStyle } = require('mono-mail')
+const monoMails = require('mono-mails')
+```
+
+Mono notifications also expose the mails as REST routes
+
+TODO: All rest calls need a session and a role that contain `ManageMail` action. This action is not added automatically.
+
+## Routes
+
+| Method | URI | Query params | Body | Action   |
+| :------| :---| :------------| :-----| :--------|
+| `POST`  | /mails/preview    |  `path`, `model` | | Return HTML Generated mail |
+| `POST`  | /mails/send       |  `path`, `model`, `email`, `subject`| | Return the number of unread notifications |
+
+Query params:
+- `pathType`?: String (`relative` or `absolute`) Relative from current mono instance __dirname__
+
+Post params:
+- `path`: String. Path to the mail file
+- `model`: Object. Data object that will be compiled by handlebar
+- `subject`: String (compiled with handlebar). Subject of the mail
+- `email`: String. Email adress of the sender
+
+### registerPartial
+
+```js
+registerPartial(partialName = String, partialPathmail = String): Promise<void>
+```
+
+Register new partial template to be used inside mail template
+
+Arguments:
+- `partialName`: String. Partial name key
+- `partialPathmail`: String. Path of the partial template
+
+```js
+// Register new partial
+const template = await monoMails.registerPartial('font-footer', join(__dirname, 'modules/mails/font-footer.html'))
+```
+
+### generate
+
+```js
+generate(mail = { path, model, subject }): Promise<void>
+```
+
+Generate HTML template from mail object.
+
+Arguments:
+- `path`: String. Path to the mail file
+- `model`: Object. Data object that will be compiled by handlebar
+- `subject`: String (compiled with handlebar). Subject of the mail
+
+```js
+// Generate template mail in HTML
+const template = await monoMails.generate({
+  subject: 'Hello, {{ firstName }}',
+  path: join(__dirname, 'modules/users/signup.html'),
+  style: 'front',
+  model: {
+    title: 'Welcome to mono-mail',
+    description: 'Mono module using mjml and handlebar to generate awesome template mail and send it to your customers'
+  }
+})
+```
+
+### send
+
+```js
+send(mail = { path, model, subject, bcc, email }): Promise<void>
+```
+
+Generate HTML template from mail object.
+
+Arguments:
+- `bcc`: String. Blind Carbon Copy email
+- `email`: String. Recipient email address
+
+
+```js
+// Send email to recipient@terrajs.io recipient
+const template = await monoMails.generate({
+  subject: 'Hello, {{ firstName }}',
+  path: join(__dirname, 'modules/users/signup.html'),
+  bcc: 'copy@terrajs.io',
+  email: 'recipient@terrajs.io',
+  style: 'front',
+  model: {
+    title: 'Welcome to mono-mail',
+    description: 'Mono module using mjml and handlebar to generate awesome template mail and send it to your customers'
+  }
+})
 ```
 
 ## Development / Contribution
