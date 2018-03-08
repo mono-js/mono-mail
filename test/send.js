@@ -14,7 +14,7 @@ test('monoMail.generate should throw an error if the email doesn\'t exist', asyn
 	ctx = await start(join(__dirname, 'fixtures/ok/'), { env: 'test' })
 
 	const conf = Object.assign({}, defaultEmailConf)
-	delete conf.email
+	delete conf.to
 
 	const error = await t.throws(monoMail.send(conf))
 
@@ -32,7 +32,7 @@ test('monoMails.send with smtp provider should send an email', async (t) => {
 	})
 
 	const sendConf = {
-		email: 'test@terrajs.io',
+		to: 'test@terrajs.io',
 		bcc: 'bbc@terrajs.io'
 	}
 
@@ -44,6 +44,6 @@ test('monoMails.send with smtp provider should send an email', async (t) => {
 	// Waiting for new email from smtp server
 	const result = await t.throws((cb(maildev.on, 'new')))
 
-	t.true(result.html.includes(defaultEmailConf.model.description))
+	t.true(result.html.includes(defaultEmailConf.data.description))
 	await stop(ctx.server)
 })

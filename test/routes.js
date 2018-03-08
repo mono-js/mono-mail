@@ -30,7 +30,7 @@ test('/mails/preview should set the path as relative by default', async (t) => {
 	const { statusCode, body } = await $post('/mails/preview', {
 		body: {
 			path: 'url/test.html',
-			model: defaultEmailConf.model
+			data: defaultEmailConf.data
 		}
 	})
 
@@ -45,7 +45,7 @@ test('/mails/preview should throw a 404 if relative path is wrong', async (t) =>
 		},
 		body: {
 			path: join('/', defaultEmailConf.path),
-			model: defaultEmailConf.model
+			data: defaultEmailConf.data
 		}
 	})
 
@@ -59,9 +59,9 @@ test('/mails/send should throw a 404 if subject is missing', async (t) => {
 		},
 		body: {
 			subject: 'Hello, {{ firstName }}',
-			email: 'test@terrajs.io',
+			to: 'test@terrajs.io',
 			path: join('/', defaultEmailConf.path),
-			model: defaultEmailConf.model
+			data: defaultEmailConf.data
 		}
 	})
 
@@ -78,7 +78,7 @@ test(`/mails/preview should return HTML generated mail`, async (t) => {
 		},
 		body: {
 			path: join(defaultEmailConf.path),
-			model: defaultEmailConf.model
+			data: defaultEmailConf.data
 		}
 	})
 
@@ -86,15 +86,15 @@ test(`/mails/preview should return HTML generated mail`, async (t) => {
 })
 
 test('/mails/send with smtp provider should send an email', async (t) => {
-	const model = {
+	const data = {
 		firstName: 'World'
 	}
 
 	const body = {
 		subject: 'Hello, {{ firstName }}',
-		email: 'test@terrajs.io',
+		to: 'test@terrajs.io',
 		path: join(defaultEmailConf.path),
-		model: Object.assign(model, defaultEmailConf.model)
+		data: Object.assign(data, defaultEmailConf.data)
 	}
 
 	// Send email
@@ -110,9 +110,9 @@ test('/mails/send with smtp provider should send an email', async (t) => {
 	const result = await t.throws((cb(maildev.on, 'new')))
 
 	t.is(result.from.find((email) => email.address === ctx.conf.mono.mail.from).address, ctx.conf.mono.mail.from)
-	t.is(result.to.find((email) => email.address === body.email).address, body.email)
-	t.is(result.subject, `Hello, ${model.firstName}`)
-	t.true(result.html.includes(defaultEmailConf.model.description))
+	t.is(result.to.find((email) => email.address === body.to).address, body.to)
+	t.is(result.subject, `Hello, ${data.firstName}`)
+	t.true(result.html.includes(defaultEmailConf.data.description))
 })
 
 test.after('Close mono instance', async () => {

@@ -62,7 +62,7 @@ test('monoMail.generate should throw an error if the file doesn\'t exist', async
 test('monoMail.generate should compile the template', async (t) => {
 	const result = await monoMail.generate(defaultEmailConf)
 
-	t.true(result.body.includes(defaultEmailConf.model.description))
+	t.true(result.body.includes(defaultEmailConf.data.description))
 })
 
 test('monoMail.generate should throw an error if mjml error occured', async (t) => {
