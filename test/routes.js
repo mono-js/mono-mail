@@ -20,7 +20,7 @@ test.before('Start mono, mailDev smtp server and register partials', async () =>
 
 	// We listen for new mails
 	maildev.listen()
-	ctx = await start(join(__dirname, 'fixtures/ok/'))
+	ctx = await start(join(__dirname, 'fixtures/ok/'), { env: 'test' })
 
 	//Register header partial
 	await mailModule.registerPartial('front-footer', join(__dirname, 'fixtures/ok/header.html'))

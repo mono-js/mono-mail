@@ -31,7 +31,7 @@ module.exports = {
 module.exports = {
   mono: {
     mail: {
-      exposeRoutes: true, //default disabled
+      exposeRoutes: true, // enabled by default on development environment
       provider: 'smtp', //smtp by default (more to be added)
       from: 'mono-mail@mono.io', //sender email adress (required)
       smtp: // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/924fafffc09cfeb0267573af2c847cdbfcfa464d/types/nodemailer-smtp-transport/index.d.ts#L47
@@ -42,7 +42,7 @@ module.exports = {
 
 ## Usage
 
-Mono mail is a mono module that using mjml and handlebar to generate and send awesome mails.
+Mono mail is a mono module that using [mjml](https://mjml.io/) and [handlebar](handlebarsjs.com) to generate and send awesome mails.
 
 ```js
 const monoMails = require('mono-mails')
@@ -53,6 +53,8 @@ Mono notifications also expose the mails as REST routes
 TODO: All rest calls need a session and a role that contain `ManageMail` action. This action is not added automatically.
 
 ## Routes
+
+The routes for preview and sending an email are only available on development environment or if the `exposeRoutes` is set to true in the configuration of the module.
 
 | Method | URI | Query params | Body | Action   |
 | :------| :---| :------------| :-----| :--------|

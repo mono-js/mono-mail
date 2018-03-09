@@ -1,7 +1,6 @@
 module.exports = {
 	mono: {
 		mail: {
-			exposeRoutes: true,
 			provider: 'smtp',
 			from: 'mono-mail@mono.io',
 			smtp: {
