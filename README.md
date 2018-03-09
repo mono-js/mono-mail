@@ -64,7 +64,7 @@ NODE_ENV=test npx mono dev test/fixture/ok
 ```
 Once the server launched go to this [url](http://localhost:8000/mails/preview?data[title]=Welcome%20to%20mono-mail&data[description]=Mono%20mail%20is%20a%20mono%20module%20that%20using%20mjml%20and%20handlebar%20to%20generate%20and%20send%20awesome%20mails.&path=test/fixtures/ok/email-preview.html)
 
-
+### Exposed routes
 
 | Method | URI | Query params | Body | Action   |
 | :------| :---| :------------| :-----| :--------|
@@ -81,6 +81,8 @@ Post/Query params:
 Post params:
 - `subject`: String (compiled with handlebar). Subject of the mail
 - `to`: String. Email adress of the sender
+
+## Methods
 
 ### registerPartial
 
