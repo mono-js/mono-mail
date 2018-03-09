@@ -22,8 +22,8 @@ test('monoMail.generate should throw an error if the email doesn\'t exist', asyn
 	await stop(ctx.server)
 })
 
-test('monoMails.send with smtp provider should send an email', async (t) => {
-	await monoMail.registerPartial('front-footer', join(__dirname, 'fixtures/ok/header.html'))
+test('monoMail.send with smtp provider should send an email', async (t) => {
+	await monoMail.registerPartial('front-footer', join(__dirname, 'fixtures/ok/footer.html'))
 
 	const config = require(join(__dirname, 'fixtures/ok/conf', 'test'))
 	// We create a smtp server localy

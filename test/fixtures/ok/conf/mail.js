@@ -6,6 +6,6 @@ module.exports = {
 	data: {
 		firstName: 'Hello world',
 		title: 'Welcome to mono-mail',
-		description: 'Mono module using mjml and handlebar to generate awesome template mail and send it to your customers'
+		description: 'Mono mail is a mono module that using mjml and handlebar to generate and send awesome mails.'
 	}
 }

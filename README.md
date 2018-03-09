@@ -45,28 +45,40 @@ module.exports = {
 Mono mail is a mono module that using [mjml](https://mjml.io/) and [handlebar](handlebarsjs.com) to generate and send awesome mails.
 
 ```js
-const monoMails = require('mono-mails')
+const monoMail = require('mono-mail')
 ```
 
-Mono notifications also expose the mails as REST routes
+Mono mail also expose some methods as REST routes
 
-TODO: All rest calls need a session and a role that contain `ManageMail` action. This action is not added automatically.
+TODO: All rest calls need a session and a role that contain `manageMail` action. This action is not added automatically.
 
 ## Routes
 
 The routes for preview and sending an email are only available on development environment or if the `exposeRoutes` is set to true in the configuration of the module.
 
+### Test preview route
+
+Run the mono server with mono-mail
+```
+NODE_ENV=test npx mono dev test/fixture/ok
+```
+Once the server launched go to this [url](http://localhost:8000/mails/preview?data[title]=Welcome%20to%20mono-mail&data[description]=Mono%20mail%20is%20a%20mono%20module%20that%20using%20mjml%20and%20handlebar%20to%20generate%20and%20send%20awesome%20mails.&path=test/fixtures/ok/email-preview.html)
+
+
+
 | Method | URI | Query params | Body | Action   |
 | :------| :---| :------------| :-----| :--------|
-| `POST`  | /mails/preview    |  `path`, `data` | | Return HTML Generated mail |
-| `POST`  | /mails/send       |  `path`, `data`, `to`, `subject`| | Return the number of unread notifications |
+| `GET`  | /mails/preview |  `path`, `data`, `pathType` | | Return HTML Generated mail |
+| `POST`  | /mails/send   | `pathType` | `path`, `data`, `to`, `subject` | Send email |
 
 Query params:
 - `pathType`?: String (`relative` or `absolute`) Relative from current mono instance __dirname__
 
-Post params:
+Post/Query params:
 - `path`: String. Path to the mail file
 - `data`: Object. Data object that will be compiled by handlebar
+
+Post params:
 - `subject`: String (compiled with handlebar). Subject of the mail
 - `to`: String. Email adress of the sender
 
@@ -84,13 +96,13 @@ Arguments:
 
 ```js
 // Register new partial
-const template = await monoMails.registerPartial('font-footer', join(__dirname, 'modules/mails/font-footer.html'))
+const template = await monoMail.registerPartial('font-footer', join(__dirname, 'modules/mails/font-footer.html'))
 ```
 
 ### generate
 
 ```js
-generate(mail = { path, data, subject }): Promise<void>
+generate(mail = { path, data, subject }): Promise<String>
 ```
 
 Generate HTML template from mail object.
@@ -102,7 +114,7 @@ Arguments:
 
 ```js
 // Generate template mail in HTML
-const template = await monoMails.generate({
+const template = await monoMail.generate({
   subject: 'Hello, {{ firstName }}',
   path: join(__dirname, 'modules/users/signup.html'),
   data: {
@@ -127,7 +139,7 @@ Arguments:
 
 ```js
 // Send email to recipient@terrajs.io recipient
-const template = await monoMails.generate({
+const template = await monoMail.generate({
   subject: 'Hello, {{ firstName }}',
   path: join(__dirname, 'modules/users/signup.html'),
   bcc: 'copy@terrajs.io',

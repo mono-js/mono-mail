@@ -1,7 +1,7 @@
 const test = require('ava')
 const { join } = require('path')
 
-const { start, stop, $post } = require('mono-test-utils')
+const { start, stop, $get } = require('mono-test-utils')
 
 const defaultEmailConf = require('./fixtures/ok/conf/mail')
 
@@ -12,14 +12,12 @@ test('/mails/preview with development environment should return a 200', async (t
 	const ctx = await start(join(__dirname, 'fixtures/ok/'), { env: 'development' })
 
 	//Register header partial
-	await mailModule.registerPartial('front-footer', join(__dirname, 'fixtures/ok/header.html'))
+	await mailModule.registerPartial('front-footer', join(__dirname, 'fixtures/ok/footer.html'))
 
 	// Preview email
-	const { statusCode } = await $post('/mails/preview', {
+	const { statusCode } = await $get('/mails/preview', {
 		qs: {
-			pathType: 'absolute'
-		},
-		body: {
+			pathType: 'absolute',
 			path: join(defaultEmailConf.path),
 			data: defaultEmailConf.data
 		}
@@ -36,14 +34,12 @@ test('/mails/preview with environment different of development should return a 4
 	const ctx = await start(join(__dirname, 'fixtures/ok/'), { env: 'without-routes' })
 
 	//Register header partial
-	await mailModule.registerPartial('front-footer', join(__dirname, 'fixtures/ok/header.html'))
+	await mailModule.registerPartial('front-footer', join(__dirname, 'fixtures/ok/footer.html'))
 
 	// Preview email
-	const { statusCode } = await $post('/mails/preview', {
+	const { statusCode } = await $get('/mails/preview', {
 		qs: {
-			pathType: 'absolute'
-		},
-		body: {
+			pathType: 'absolute',
 			path: join(defaultEmailConf.path),
 			data: defaultEmailConf.data
 		}
@@ -60,14 +56,12 @@ test('/mails/preview with exposeRoutes set to true should return a 200', async (
 	const ctx = await start(join(__dirname, 'fixtures/ok/'), { env: 'with-routes' })
 
 	//Register header partial
-	await mailModule.registerPartial('front-footer', join(__dirname, 'fixtures/ok/header.html'))
+	await mailModule.registerPartial('front-footer', join(__dirname, 'fixtures/ok/footer.html'))
 
 	// Preview email
-	const { statusCode } = await $post('/mails/preview', {
+	const { statusCode } = await $get('/mails/preview', {
 		qs: {
-			pathType: 'absolute'
-		},
-		body: {
+			pathType: 'absolute',
 			path: join(defaultEmailConf.path),
 			data: defaultEmailConf.data
 		}

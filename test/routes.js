@@ -3,7 +3,7 @@ const { join } = require('path')
 const MailDev = require('maildev')
 
 const { cb } = require('@terrajs/mono').utils
-const { start, stop, $post } = require('mono-test-utils')
+const { start, stop, $post, $get } = require('mono-test-utils')
 
 const defaultEmailConf = require('./fixtures/ok/conf/mail')
 const mailModule = require('../lib/index')
@@ -22,13 +22,13 @@ test.before('Start mono, mailDev smtp server and register partials', async () =>
 	maildev.listen()
 	ctx = await start(join(__dirname, 'fixtures/ok/'), { env: 'test' })
 
-	//Register header partial
-	await mailModule.registerPartial('front-footer', join(__dirname, 'fixtures/ok/header.html'))
+	//Register footer partial
+	await mailModule.registerPartial('front-footer', join(__dirname, 'fixtures/ok/footer.html'))
 })
 
 test('/mails/preview should set the path as relative by default', async (t) => {
-	const { statusCode, body } = await $post('/mails/preview', {
-		body: {
+	const { statusCode, body } = await $get('/mails/preview', {
+		qs: {
 			path: 'url/test.html',
 			data: defaultEmailConf.data
 		}
@@ -39,11 +39,9 @@ test('/mails/preview should set the path as relative by default', async (t) => {
 })
 
 test('/mails/preview should throw a 404 if relative path is wrong', async (t) => {
-	const { statusCode } = await $post('/mails/preview', {
+	const { statusCode } = await $get('/mails/preview', {
 		qs: {
-			pathType: 'relative'
-		},
-		body: {
+			pathType: 'relative',
 			path: join('/', defaultEmailConf.path),
 			data: defaultEmailConf.data
 		}
@@ -72,11 +70,9 @@ test(`/mails/preview should return HTML generated mail`, async (t) => {
 	const generatedMail = await mailModule.generate(defaultEmailConf)
 
 	// Preview email
-	const { body } = await $post('/mails/preview', {
+	const { body } = await $get('/mails/preview', {
 		qs: {
-			pathType: 'absolute'
-		},
-		body: {
+			pathType: 'absolute',
 			path: join(defaultEmailConf.path),
 			data: defaultEmailConf.data
 		}

@@ -21,7 +21,7 @@ test('monoMail.registerPartial should throw an error if file doesn\'t exist', as
 })
 
 test('Partials registered by monoMail.registerPartial should be available during handlebar compilation', async (t) => {
-	await monoMail.registerPartial('front-footer', join(__dirname, 'fixtures/ok/header.html'))
+	await monoMail.registerPartial('front-footer', join(__dirname, 'fixtures/ok/footer.html'))
 
 	const result = await monoMail.generate(defaultEmailConf)
 
