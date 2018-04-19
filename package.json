@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "gaetansenn/mono-mail"
+    "url": "git+https://github.com/terrajs/mono-mail.git"
   },
   "nyc": {
     "include": [
