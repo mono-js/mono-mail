@@ -1,6 +1,6 @@
 {
   "name": "mono-mail",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Mails module for Mono",
   "main": "lib/",
   "files": [
