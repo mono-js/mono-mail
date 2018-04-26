@@ -1,7 +1,9 @@
 module.exports = {
-  mono: {
-    mail: {
-      provider: 'bad'
-    }
-  }
+	mono: {
+		mail: {
+			provider: {
+				name: 'bad'
+			}
+		}
+	}
 }

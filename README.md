@@ -32,13 +32,24 @@ module.exports = {
   mono: {
     mail: {
       exposeRoutes: true, // enabled by default on development environment
-      provider: 'smtp', //smtp by default (more to be added)
+      provider: { // not required
+        name: 'smtp || ses',
+        ... //conf of the provider
+      },
       from: 'mono-mail@mono.io', //sender email adress (required)
       smtp: // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/924fafffc09cfeb0267573af2c847cdbfcfa464d/types/nodemailer-smtp-transport/index.d.ts#L47
     }
   }
 }
 ```
+
+## Providers
+
+Mono mail is currently supporting two providers to send your email:
+- SMTP provider, using [nodemailer](https://github.com/nodemailer/nodemailer) with the [nodemailer-smtp-transport](https://github.com/nodemailer/nodemailer-smtp-transport) transport
+- [SES](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SES.html) Amazon, using [nodemail](https://github.com/nodemailer/nodemailer) with the [nodemailer-ses-transport](https://github.com/nodemailer/nodemailer-ses-transport) transport.
+
+If no provider is provided the library will remove the `/mails/send` route and the [send](#send) method.
 
 ## Usage
 
@@ -63,6 +74,9 @@ Run the mono server with mono-mail
 NODE_ENV=test npx mono dev test/fixture/ok
 ```
 Once the server launched go to this [url](http://localhost:8000/mails/preview?data[title]=Welcome%20to%20mono-mail&data[description]=Mono%20mail%20is%20a%20mono%20module%20that%20using%20mjml%20and%20handlebar%20to%20generate%20and%20send%20awesome%20mails.&path=test/fixtures/ok/email-preview.html)
+
+### Roadmap
+- Add attachment MINE Type in http `POST` route
 
 ### Exposed routes
 
@@ -129,7 +143,7 @@ const template = await monoMail.generate({
 ### send
 
 ```js
-send(mail = { path, data, subject, bcc, email }): Promise<void>
+send(mail = { path, data, subject, bcc, email, attachments: [{ filename, path, contentType }] }): Promise<void>
 ```
 
 Generate HTML template from mail object.
@@ -137,6 +151,7 @@ Generate HTML template from mail object.
 Arguments:
 - `bcc`: String. Blind Carbon Copy email
 - `email`: String. Recipient email address
+- `attachments`: Array<{ filename, path, contentType }>. Attachment to the mail
 
 
 ```js
