@@ -143,14 +143,14 @@ const template = await monoMail.generate({
 ### send
 
 ```js
-send(mail = { path, data, subject, bcc, email, attachments: [{ filename, path, contentType }] }): Promise<void>
+send(mail = { path, data, subject, bcc, to, attachments: [{ filename, path, contentType }] }): Promise<void>
 ```
 
 Generate HTML template from mail object.
 
 Arguments:
 - `bcc`: String. Blind Carbon Copy email
-- `email`: String. Recipient email address
+- `to`: String. Recipient email address
 - `attachments`: Array<{ filename, path, contentType }>. Attachment to the mail
 
 
