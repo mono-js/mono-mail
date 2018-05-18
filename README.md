@@ -31,13 +31,15 @@ module.exports = {
 module.exports = {
   mono: {
     mail: {
-      exposeRoutes: true, // enabled by default on development environment
-      provider: { // not required
+      // Optional, if not provided, only preview will be available
+      provider: {
         name: 'smtp || ses',
-        ... //conf of the provider
+        ... // Provider conf
       },
-      from: 'mono-mail@mono.io', //sender email adress (required)
-      smtp: // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/924fafffc09cfeb0267573af2c847cdbfcfa464d/types/nodemailer-smtp-transport/index.d.ts#L47
+      // Sender email adress (required)
+      from: 'mono-mail@terrajs.org',
+      // Enabled by default on development
+      exposeRoutes: true
     }
   }
 }
@@ -53,7 +55,7 @@ If no provider is provided the library will remove the `/mails/send` route and t
 
 ## Usage
 
-Mono mail is a mono module that using [mjml](https://mjml.io/) and [handlebar](handlebarsjs.com) to generate and send awesome mails.
+Mono mail is a mono module that using [mjml](https://mjml.io) and [handlebar](https://handlebarsjs.com) to generate and send awesome mails.
 
 ```js
 const monoMail = require('mono-mail')
@@ -69,14 +71,17 @@ The routes for preview and sending an email are only available on development en
 
 ### Test preview route
 
-Run the mono server with mono-mail
+Run the mono server with mono-mail:
+
 ```
-NODE_ENV=test npx mono dev test/fixture/ok
+NODE_ENV=test npx mono dev test/fixture/ok/
 ```
+
 Once the server launched go to this [url](http://localhost:8000/mails/preview?data[title]=Welcome%20to%20mono-mail&data[description]=Mono%20mail%20is%20a%20mono%20module%20that%20using%20mjml%20and%20handlebar%20to%20generate%20and%20send%20awesome%20mails.&path=test/fixtures/ok/email-preview.html)
 
 ### Roadmap
-- Add attachment MINE Type in http `POST` route
+
+- Add attachment MINE Type in HTTP `POST` route
 
 ### Exposed routes
 
@@ -174,4 +179,4 @@ See the [contribution guidelines](CONTRIBUTING.md) of this project.
 
 ## License
 
-MIT &copy; gaetansenn
+MIT &copy; gaetansenn 
