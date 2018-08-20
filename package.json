@@ -30,13 +30,13 @@
     "nodemailer-ses-transport": "^1.5.1"
   },
   "devDependencies": {
-    "@terrajs/mono": "0.9.1",
+    "mono-core": "1.0.0",
     "ava": "0.25.0",
-    "codecov": "3.0.0",
-    "eslint": "4.18.2",
+    "codecov": "3.0.4",
+    "eslint": "5.4.0",
     "maildev": "1.0.0-rc3",
-    "mono-test-utils": "1.2.3",
-    "nyc": "11.4.1"
+    "mono-test-utils": "1.2.4",
+    "nyc": "12.0.2"
   },
   "keywords": [
     "mono",
