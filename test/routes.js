@@ -2,7 +2,7 @@ const test = require('ava')
 const { join } = require('path')
 const MailDev = require('maildev')
 
-const { cb } = require('@terrajs/mono').utils
+const { cb } = require('mono-utils')
 const { start, stop, $post, $get } = require('mono-test-utils')
 
 const defaultEmailConf = require('./fixtures/ok/conf/mail')
